@@ -4,6 +4,8 @@
 
 using namespace std;
 
+int n, w;
+
 // Compute prefix sum
 vector<int> sumPrefix(vector<int>& v) {
     int n = v.size();
@@ -19,29 +21,36 @@ int getSum(vector<int>& sumVec, int a, int b) {
     return sumVec[b] - sumVec[a - 1];
 }
 
+int conquer(vector<int> &v, int start, int mid, int stop, vector<int> &sumVec){
+    int bestLeft = INT_MIN, bestRight = INT_MIN;
+
+    // Left side (max subarray ending at mid)
+    for (int i = mid, count = 0; i >= start && count < w; i--, count++) {
+        bestLeft = max(bestLeft, getSum(sumVec, i, mid));
+    }
+
+    // Right side (max subarray starting at mid + 1)
+    for (int i = mid + 1, count = 0; i <= stop && count < w; i++, count++) {
+        bestRight = max(bestRight, getSum(sumVec, mid + 1, i));
+    }
+
+    return bestLeft + bestRight;
+}
+
 // Divide & Conquer
 int divide(vector<int>& v, int start, int stop, vector<int>& sumVec) {
     if (start == stop) return v[start];  // Base case
 
-    int m = (start + stop) / 2;
+    int mid = (start + stop) / 2;
 
-    int left_max = divide(v, start, m, sumVec);
-    int right_max = divide(v, m + 1, stop, sumVec);
-
-    // Find max crossing sum
-    int mid_max = INT_MIN;
-    for (int i = m; i >= start; i--) {  // Left part
-        for (int j = m + 1; j <= stop; j++) {  // Right part
-            int sum = getSum(sumVec, i, j);
-            mid_max = max(mid_max, sum);
-        }
-    }
-
-    return max(left_max, max(right_max, mid_max));
+    int left_max = divide(v, start, mid, sumVec);
+    int right_max = divide(v, mid + 1, stop, sumVec);
+    int cross_max = conquer(v, start, mid, stop, sumVec);
+   
+    return max(left_max, max(right_max, cross_max));
 }
 
 int main() {
-    int n, w;
     cin >> n >> w;
     vector<int> vec(n);
 
