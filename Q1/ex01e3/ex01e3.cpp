@@ -8,7 +8,7 @@ int binary_search_near(vector<int> &sorted_candidates, int data){
 
     while(left <= right){
         int mid = (left+right)/2;
-        if(sorted_candidates[mid] <= data){
+        if(data >= sorted_candidates[mid]){
             best = sorted_candidates[mid];
             left = mid + 1;
         }else{

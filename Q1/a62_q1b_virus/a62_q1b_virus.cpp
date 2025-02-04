@@ -14,8 +14,11 @@ bool isVirus(vector<int> &v, int start, int stop){
         reverseLeft[j-start] = v[i];
     }
 
+     // Check if left is a valid virus in normal or reversed order
     bool leftValid = isVirus(v, start, mid);    
     bool leftReversedValid = isVirus(reverseLeft, 0, mid-start);
+
+    // Check if right is valid
     bool rightValid = isVirus(v, mid+1, stop);
 
     return rightValid && (leftValid || leftReversedValid);
