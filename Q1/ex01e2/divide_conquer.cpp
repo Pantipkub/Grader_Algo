@@ -22,12 +22,12 @@ int divide(vector<int> &v, int start, int stop, vector<int> &sumVector){
     int maxRight = divide(v, mid+1, stop, sumVector);
 
     int maxMiddleByLeft = getSum(sumVector, mid+1, mid+1); //(m)
-    for(int i = start; i < mid-1+1; i++){ //end at (m-1 + m)
+    for(int i = start; i < mid-1+1; i++){   
         maxMiddleByLeft = max(maxMiddleByLeft, getSum(sumVector, i+1, mid+1));
     }
 
     int maxMiddleByRight = v[mid+1]; //(m+1)
-    for(int j = mid+2; j < stop+1; j++){ //end at (stop-1 + stop)
+    for(int j = mid+2; j < stop+1; j++){
         maxMiddleByRight = max(maxMiddleByRight, getSum(sumVector, mid+1+1, j+1));
     }
 
