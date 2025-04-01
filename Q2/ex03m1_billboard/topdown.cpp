@@ -12,9 +12,7 @@ int recur(int n){
     if(n > sudTarng) return 0;
     if(dp[n] != -1) return dp[n];
 
-    int next1 = recur(n+2);
-    int next2 = recur(n+3);
-    return dp[n] = max(next1,next2) + c[n];
+    return dp[n] = max(recur(n+2) + c[n] , recur(n+1));
 }
 
 int main(){
@@ -26,7 +24,5 @@ int main(){
         cin >> c[i];
     }
 
-    int start0 = recur(0);
-    int start1 = recur(1);
-    cout << max(start0, start1);
+    cout << recur(0);
 }
