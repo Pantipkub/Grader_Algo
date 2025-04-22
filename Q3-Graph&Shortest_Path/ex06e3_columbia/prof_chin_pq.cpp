@@ -26,18 +26,18 @@ int main() {
                  
   pq.push({0, 0, 0});
   while (!pq.empty()) {
-    auto [cost, x, y] = pq.top(); 
+    auto [cost, r, c] = pq.top(); 
     pq.pop();
-    if (cost > dist[y][x]) continue; // y x, because y is vertical-axis which represents row and x is horizontal-axis which represents column
+    if (cost > dist[r][c]) continue; // r c, because r is vertical-acis which represents row and c is horizontal-acis which represents column
     
     for (int dir = 0; dir < 4; dir++) {
-      int nx = x + dx[dir];
-      int ny = y + dy[dir];
-      if ((nx >= 0) && (nx < C) && (ny >= 0) && (ny < R)) {
-        int newCost = dist[y][x] + fee[ny][nx];
-        if (newCost < dist[ny][nx]) {
-          dist[ny][nx] = newCost;
-          pq.push({newCost, nx, ny});
+      int nc = c + dc[dir];
+      int nr = r + dr[dir];
+      if ((nc >= 0) && (nc < C) && (nr >= 0) && (nr < R)) {
+        int newCost = dist[r][c] + fee[nr][nc];
+        if (newCost < dist[nr][nc]) {
+          dist[nr][nc] = newCost;
+          pq.push({newCost, nc, nr});
         }
       }
     }

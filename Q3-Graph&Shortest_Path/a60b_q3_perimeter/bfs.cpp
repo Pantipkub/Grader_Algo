@@ -10,20 +10,13 @@ int count = 0;
 void bfs(int a, vector<vector<int>> &adjList, vector<int> &visited){
     queue<int> q;
     visited[a] = 0;
-    for(int v: adjList[a]){
-        q.push(v);
-        visited[v] = 1;
-        if(visited[v] == k) count++;
-    }
+    q.push(0);
     while(!q.empty()){
         int u = q.front();
         q.pop();
         for(int v: adjList[u]){
             if(visited[v] == -1){
                 visited[v] = visited[u]+1;
-                if(visited[v] == k){
-                    count++;
-                }
                 q.push(v);
             }
         }
@@ -41,7 +34,6 @@ int main(){
     vector<int> visited(n+1, -1);
     bfs(0, adjList, visited);
     for(int i = 0; i < n+1; i++){
-        // cout << visited[i] << ' ';
         if(visited[i] == k) count++;
     }
     cout << count;
