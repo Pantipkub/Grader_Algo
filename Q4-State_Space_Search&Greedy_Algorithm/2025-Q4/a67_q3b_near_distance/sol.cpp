@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int R,C;
+int R,C, K;
 vector<vector<int>> grid;
 queue<pair<int,int>> start;
 vector<vector<vector<int>>> vectors;
@@ -36,7 +36,7 @@ void bfs(pair<int,int> p, vector<vector<int>> &visited){
 
 int main(){
     std::ios::sync_with_stdio(false); std::cin.tie(0);
-    cin >> R >> C;
+    cin >> R >> C >> K;
     grid.resize(R, vector<int>(C));
     for(int i = 0; i < R; i++){
         for(int j = 0; j < C; j++){
@@ -69,7 +69,7 @@ int main(){
                 maxDist = max(maxDist, vectors[k][i][j]);
             }
             
-            if(allReachable && abs(maxDist - minDist) <= 1) count++;
+            if(allReachable && abs(maxDist - minDist) <= K) count++;
         }
     }
 
